@@ -1,89 +1,98 @@
-# ProposalPilot — Real SaaS Live-Build Baseline
+# ProposalPilot — Real SaaS Vertical Slice
 
-Repository pendamping webinar **From Prompt to Production: Building SaaS with AI in Under 1 Hour**.
+Companion repository for **From Prompt to Production: Building SaaS with AI in Under 1 Hour**.
 
-> Status saat ini: **true Next.js SSR baseline**. Ini sengaja kosong dari flow SaaS palsu. Implementasi live berikutnya dibangun lewat checkpoint yang server-side dan database-backed.
+ProposalPilot turns a short client brief into a structured proposal for freelancers, agencies, and consultants.
 
-## Webinar contract
+## What is real in checkpoint 2
 
-Webinar tidak akan membuktikan "halaman yang kelihatan seperti SaaS". Target build adalah satu vertical slice yang bisa diaudit:
+This is a local, database-backed SaaS vertical slice:
 
 ```text
-Idea
-→ plan + acceptance criteria
-→ SSR baseline
-→ SQLite schema + server-rendered reads
-→ sandbox subscription via Server Action
+SQLite user/subscription/proposal/usage-event records
+→ server-rendered dashboard and proposal pages
+→ sandbox subscription Server Action
 → persisted quota
+→ deterministic server-side proposal generator
 → proposal create transaction
-→ saved record
-→ Draft → Sent status
-→ reload persistence
-→ E2E verification
+→ persisted Draft → Sent status update
+→ page reload persistence
+→ Playwright proof
 ```
 
-Sandbox checkout dan deterministic proposal generator akan diberi label jujur. Keduanya bukan payment provider atau external AI provider.
+The source of truth is `data/proposalpilot.sqlite`, not browser localStorage or React-only state.
 
-## Current checkpoint state
+## Checkpoint branches
 
-| Branch | Meaning |
+| Branch | Actual meaning |
 |---|---|
-| `checkpoint-0-baseline` | True SSR route scaffold, no fake SaaS flow |
-| `checkpoint-1-ui-shell` | Planned: SQLite-backed SSR reads and seeded data |
-| `checkpoint-2-working-saas-flow` | Planned: Server Actions, local subscription/quota, persisted proposal flow |
-| `main` | Current attendee baseline and live-build prompt pack |
-
-> Historical branch names may predate this truth contract. Treat `docs/live-build-master-prompt.md` as the current checkpoint specification.
-
-## Routes in the SSR baseline
-
-```text
-/                         public baseline
-/app                      workspace shell
-/app/billing              billing baseline
-/app/proposals            proposal list baseline
-/app/proposals/new        proposal creation baseline
-/app/proposals/[id]       dynamic server-rendered detail baseline
-```
+| `checkpoint-0-baseline` | True empty Next.js SSR route scaffold; no product flow |
+| `checkpoint-1-ui-shell` | SQLite schema, seeded demo records, Server Component database reads |
+| `checkpoint-2-working-saas-flow` | Server Actions for sandbox subscription, quota, proposal creation, and status persistence |
+| `main` | Current verified checkpoint 2 plus attendee docs/prompt pack |
 
 ## Run locally
 
 ```bash
 npm install
-npm run dev -- --hostname 127.0.0.1 --port 3047
+npm run db:reset
+npm run build
+npm run start -- --hostname 0.0.0.0 --port 3047
 ```
 
 Open `http://127.0.0.1:3047`.
 
-## Verify the current baseline
+## Verify
 
 ```bash
+npm run db:reset
 npm run lint
 npx tsc --noEmit
 npm run build
 npm run test:e2e
 ```
 
-## Live build guide
+## Live demo journey
 
-Read these in order:
+```text
+/app/billing
+→ choose Pro
+→ Complete Sandbox Checkout
+→ /app shows Pro active and 50/50
+→ /app/proposals/new
+→ Generate and Save Proposal
+→ proposal detail shows generated content
+→ /app shows 49/50
+→ change Draft to Sent
+→ reload confirms Sent + 49/50 persist
+```
 
-1. [`docs/live-build-master-prompt.md`](docs/live-build-master-prompt.md) — one master prompt from idea to final checkpoint proof
-2. [`docs/checkpoint-build-prompts.md`](docs/checkpoint-build-prompts.md) — prompt sections and timing map per checkpoint
+## Honest boundaries
 
-## Honest scope today
+Implemented:
 
-Not implemented in the baseline:
+- local SQLite persistence
+- server-rendered reads
+- Server Action writes
+- local sandbox subscription
+- quota transaction with proposal record and usage event
+- deterministic server-side generator
 
-- authentication/session security
-- database persistence
-- payment provider or webhooks
-- subscription/entitlement ledger
-- proposal creation or status workflow
+Not implemented:
+
+- real login/password/session security
+- remote/shared production database
+- payment processor, payment webhooks, invoices
 - external AI provider
+- multi-user authorization, rate limits, monitoring
 - PDF export
 
-Those are built during the checkpointed live implementation, not implied by a polished static interface.
+Sandbox checkout creates a local development subscription. It does not charge a card or contact a payment provider.
+
+## Webinar prompt pack
+
+- [`docs/live-build-master-prompt.md`](docs/live-build-master-prompt.md) — end-to-end idea → plan → CP0 → CP1 → verify → CP2 → verify → final prompt
+- [`docs/checkpoint-build-prompts.md`](docs/checkpoint-build-prompts.md) — checkpoint prompts and timing map
 
 ## License
 
