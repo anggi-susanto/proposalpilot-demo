@@ -1,14 +1,13 @@
 import Link from "next/link";
 
-import { getCurrentUser } from "@/lib/auth";
+import { requireAuth } from "@/lib/auth";
 import { listProposalsForUser } from "@/lib/repositories";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
 export default async function ProposalsPage() {
-  const user = await getCurrentUser();
-  if (!user) return null;
+  const user = await requireAuth();
   const proposals = listProposalsForUser(user.id);
 
   return (

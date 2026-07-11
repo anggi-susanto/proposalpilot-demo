@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-import { getCurrentUser } from "@/lib/auth";
+import { requireAuth } from "@/lib/auth";
 import { getDashboardSummary, getSubscriptionForUser, listProposalsForUser } from "@/lib/repositories";
 import { formatQuota } from "@/lib/types";
 
@@ -8,8 +8,7 @@ export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
 export default async function DashboardPage() {
-  const user = await getCurrentUser();
-  if (!user) return null;
+  const user = await requireAuth();
   const subscription = getSubscriptionForUser(user.id);
   if (!subscription) throw new Error("Subscription not found. Please register again.");
   const summary = getDashboardSummary(user.id);
