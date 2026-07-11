@@ -13,7 +13,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
       <aside className="border-r border-slate-200 bg-white px-5 py-6">
         <Link href="/" className="block">
           <p className="text-lg font-bold tracking-tight">ProposalPilot</p>
-          <p className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-500">SSR SaaS baseline</p>
+          <p className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-500">Local SQLite workspace</p>
         </Link>
         <nav className="mt-8 space-y-1">
           {nav.map(([label, href]) => (
