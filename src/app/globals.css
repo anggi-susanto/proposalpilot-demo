@@ -1,8 +1,8 @@
 @import "tailwindcss";
 
 :root {
-  --background: #f5f1e8;
-  --foreground: #111827;
+  --background: #f8fafc;
+  --foreground: #0f172a;
 }
 
 @theme inline {
@@ -35,31 +35,7 @@ select {
   font: inherit;
 }
 
-button,
-a,
-select {
-  transition:
-    transform 180ms ease,
-    background-color 180ms ease,
-    border-color 180ms ease,
-    color 180ms ease,
-    opacity 180ms ease;
-}
-
-button:hover,
-a:hover {
-  transform: translateY(-1px);
-}
-
 pre,
-code,
-select,
-input,
-textarea {
+code {
   font-family: var(--font-mono), ui-monospace, SFMono-Regular, Menlo, monospace;
-}
-
-::selection {
-  background: #fcd34d;
-  color: #0f172a;
 }
