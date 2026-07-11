@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "eslint",
     "test:e2e": "playwright test --reporter=line",
-    "verify": "npm run lint && npm run build && npm run test:e2e"
+    "db:reset": "node scripts/reset-db.mjs",
+    "verify": "npm run db:reset && npm run lint && npm run build && npm run test:e2e"
   },
   "dependencies": {
     "next": "16.2.10",
