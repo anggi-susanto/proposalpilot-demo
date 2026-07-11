@@ -1,16 +1,17 @@
 import Link from "next/link";
 
-import { getDashboardSummary, getDemoUser, getSubscriptionForUser, listProposalsForUser } from "@/lib/repositories";
+import { getCurrentUser } from "@/lib/auth";
+import { getDashboardSummary, getSubscriptionForUser, listProposalsForUser } from "@/lib/repositories";
 import { formatQuota } from "@/lib/types";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
-export default function DashboardPage() {
-  const user = getDemoUser();
-  if (!user) throw new Error("Demo user is missing. Run npm run db:reset.");
+export default async function DashboardPage() {
+  const user = await getCurrentUser();
+  if (!user) throw new Error("Not authenticated.");
   const subscription = getSubscriptionForUser(user.id);
-  if (!subscription) throw new Error("Demo subscription is missing. Run npm run db:reset.");
+  if (!subscription) throw new Error("Subscription not found. Please register again.");
   const summary = getDashboardSummary(user.id);
   const proposals = listProposalsForUser(user.id).slice(0, 5);
 
@@ -19,7 +20,7 @@ export default function DashboardPage() {
       <div>
         <p className="text-sm font-semibold uppercase tracking-[0.2em] text-slate-500">Dashboard</p>
         <h1 className="mt-3 text-3xl font-bold tracking-tight">Welcome back, {user.name}.</h1>
-        <p className="mt-3 max-w-2xl text-slate-600">This checkpoint reads all workspace values from local SQLite on the server.</p>
+        <p className="mt-3 max-w-2xl text-slate-600">This workspace reads all values from local SQLite on the server.</p>
       </div>
 
       <section className="grid gap-4 md:grid-cols-4">
@@ -33,7 +34,7 @@ export default function DashboardPage() {
         <div className="flex items-center justify-between gap-4">
           <div>
             <p className="text-sm font-semibold text-slate-500">Recent proposals</p>
-            <h2 className="mt-1 text-xl font-bold">{summary.totalProposals} sample records loaded from SQLite</h2>
+            <h2 className="mt-1 text-xl font-bold">{summary.totalProposals} records in SQLite</h2>
           </div>
           <Link className="rounded-lg bg-slate-950 px-4 py-2 text-sm font-semibold text-white" href="/app/proposals">Open proposals</Link>
         </div>

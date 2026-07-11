@@ -1,17 +1,18 @@
 import Link from "next/link";
 
 import { createProposal } from "./actions";
-import { getDemoUser, getSubscriptionForUser } from "@/lib/repositories";
+import { getCurrentUser } from "@/lib/auth";
+import { getSubscriptionForUser } from "@/lib/repositories";
 import { formatQuota } from "@/lib/types";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
-export default function NewProposalPage() {
-  const user = getDemoUser();
-  if (!user) throw new Error("Demo user is missing. Run npm run db:reset.");
+export default async function NewProposalPage() {
+  const user = await getCurrentUser();
+  if (!user) throw new Error("Not authenticated.");
   const subscription = getSubscriptionForUser(user.id);
-  if (!subscription) throw new Error("Demo subscription is missing. Run npm run db:reset.");
+  if (!subscription) throw new Error("Subscription not found. Please register again.");
   const active = subscription.status === "active" && subscription.quotaUsed < subscription.quotaTotal;
 
   if (!active) {

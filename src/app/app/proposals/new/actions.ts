@@ -2,8 +2,8 @@
 
 import { redirect } from "next/navigation";
 
+import { getCurrentUser } from "@/lib/auth";
 import { createProposalForUser } from "@/lib/proposal-service";
-import { DEMO_USER_ID } from "@/lib/types";
 
 function field(formData: FormData, name: string) {
   const value = formData.get(name);
@@ -12,7 +12,10 @@ function field(formData: FormData, name: string) {
 }
 
 export async function createProposal(formData: FormData) {
-  const proposalId = createProposalForUser(DEMO_USER_ID, {
+  const user = await getCurrentUser();
+  if (!user) throw new Error("Not authenticated.");
+
+  const proposalId = createProposalForUser(user.id, {
     clientName: field(formData, "clientName"),
     industry: field(formData, "industry"),
     service: field(formData, "service"),

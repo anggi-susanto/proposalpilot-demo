@@ -15,6 +15,7 @@ function createDatabase() {
       id TEXT PRIMARY KEY,
       name TEXT NOT NULL,
       email TEXT NOT NULL UNIQUE,
+      password_hash TEXT NOT NULL DEFAULT '',
       created_at TEXT NOT NULL
     );
 

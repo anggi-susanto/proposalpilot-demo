@@ -1,15 +1,16 @@
 import { notFound } from "next/navigation";
 
 import { changeProposalStatus } from "./actions";
-import { getDemoUser, getProposalForUser } from "@/lib/repositories";
+import { getCurrentUser } from "@/lib/auth";
+import { getProposalForUser } from "@/lib/repositories";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
 export default async function ProposalDetailPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
-  const user = getDemoUser();
-  if (!user) throw new Error("Demo user is missing. Run npm run db:reset.");
+  const user = await getCurrentUser();
+  if (!user) throw new Error("Not authenticated.");
   const proposal = getProposalForUser(user.id, id);
   if (!proposal) notFound();
 

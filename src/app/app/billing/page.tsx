@@ -1,15 +1,16 @@
 import { activateSubscription } from "./actions";
-import { getDemoUser, getSubscriptionForUser } from "@/lib/repositories";
+import { getCurrentUser } from "@/lib/auth";
+import { getSubscriptionForUser } from "@/lib/repositories";
 import { formatQuota, plans } from "@/lib/types";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
-export default function BillingPage() {
-  const user = getDemoUser();
-  if (!user) throw new Error("Demo user is missing. Run npm run db:reset.");
+export default async function BillingPage() {
+  const user = await getCurrentUser();
+  if (!user) throw new Error("Not authenticated.");
   const subscription = getSubscriptionForUser(user.id);
-  if (!subscription) throw new Error("Demo subscription is missing. Run npm run db:reset.");
+  if (!subscription) throw new Error("Subscription not found. Please register again.");
 
   return (
     <main>
