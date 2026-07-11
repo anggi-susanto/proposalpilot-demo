@@ -7,22 +7,34 @@ function resetDatabase() {
 
 test.beforeEach(() => resetDatabase());
 
-test("checkpoint 1 server-renders SQLite-backed workspace data", async ({ page }) => {
-  await page.goto("/app");
-  await expect(page.getByRole("heading", { name: /welcome back, alex morgan/i })).toBeVisible();
-  await expect(page.getByText("0/0", { exact: true })).toBeVisible();
-  await expect(page.getByText("Urban Plant Studio", { exact: true })).toBeVisible();
+test("checkpoint 2 persists sandbox subscription, quota, proposal, and status", async ({ page }) => {
+  await page.goto("/app/billing");
+  await expect(page.getByRole("heading", { name: /sandbox subscription/i })).toBeVisible();
+  await page.locator('form:has(input[value="Pro"])').getByRole("button", { name: /complete sandbox checkout/i }).click();
+  await expect(page.getByText("Pro", { exact: true }).first()).toBeVisible();
+  await expect(page.getByText("50/50", { exact: true })).toBeVisible();
 
-  await page.getByRole("link", { name: /open proposals/i }).click();
-  await expect(page.getByRole("heading", { name: /database-backed proposal records/i })).toBeVisible();
-  await page.getByText("Urban Plant Studio", { exact: true }).click();
-  await expect(page.getByRole("heading", { name: "Urban Plant Studio" })).toBeVisible();
-  await expect(page.getByText(/sample record: urban plant studio/i)).toBeVisible();
+  await page.goto("/app/proposals/new");
+  await expect(page.getByRole("heading", { name: /create a proposal/i })).toBeVisible();
+  await page.getByRole("button", { name: /generate and save proposal/i }).click();
+  await expect(page.getByText(/Executive Summary/)).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Nusantara Coffee Roasters" })).toBeVisible();
+
+  await page.goto("/app");
+  await expect(page.getByText("49/50", { exact: true })).toBeVisible();
+  await page.getByText("Nusantara Coffee Roasters", { exact: true }).first().click();
+  await page.getByRole("combobox").selectOption("Sent");
+  await page.getByRole("button", { name: /update status/i }).click();
+  await page.reload();
+  await expect(page.getByRole("combobox")).toHaveValue("Sent");
+  await page.goto("/app");
+  await expect(page.getByText("49/50", { exact: true })).toBeVisible();
 });
 
-test("checkpoint 1 billing reads inactive subscription from SQLite", async ({ page }) => {
-  await page.goto("/app/billing");
-  await expect(page.getByText(/current database state: inactive/i)).toBeVisible();
-  await expect(page.getByText("50 proposals/month", { exact: true })).toBeVisible();
-  await expect(page.getByText(/sandbox activation is intentionally added in checkpoint 2/i)).toBeVisible();
+test("checkpoint 2 blocks proposal creation before sandbox checkout", async ({ page }) => {
+  await page.goto("/app/proposals/new");
+  await expect(page.getByRole("heading", { name: /activate a plan first/i })).toBeVisible();
+  await expect(page.getByRole("link", { name: /go to billing/i })).toBeVisible();
+  await page.goto("/app");
+  await expect(page.getByText("0/0", { exact: true })).toBeVisible();
 });

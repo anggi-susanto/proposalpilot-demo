@@ -1,18 +1,20 @@
-import { existsSync, mkdirSync, rmSync } from "node:fs";
+import { mkdirSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { DatabaseSync } from "node:sqlite";
 
 const file = join(process.cwd(), "data", "proposalpilot.sqlite");
 mkdirSync(dirname(file), { recursive: true });
-if (existsSync(file)) rmSync(file);
-
 const db = new DatabaseSync(file);
 db.exec(`
   PRAGMA foreign_keys = ON;
-  CREATE TABLE users (id TEXT PRIMARY KEY, name TEXT NOT NULL, email TEXT NOT NULL UNIQUE, created_at TEXT NOT NULL);
-  CREATE TABLE subscriptions (id TEXT PRIMARY KEY, user_id TEXT NOT NULL UNIQUE, plan TEXT, status TEXT NOT NULL, quota_total INTEGER NOT NULL DEFAULT 0, quota_used INTEGER NOT NULL DEFAULT 0, activated_at TEXT, updated_at TEXT NOT NULL, FOREIGN KEY (user_id) REFERENCES users(id));
-  CREATE TABLE proposals (id TEXT PRIMARY KEY, user_id TEXT NOT NULL, client_name TEXT NOT NULL, industry TEXT NOT NULL, service TEXT NOT NULL, problem TEXT NOT NULL, outcome TEXT NOT NULL, budget TEXT NOT NULL, tone TEXT NOT NULL, content TEXT NOT NULL, status TEXT NOT NULL, created_at TEXT NOT NULL, updated_at TEXT NOT NULL, FOREIGN KEY (user_id) REFERENCES users(id));
-  CREATE TABLE usage_events (id TEXT PRIMARY KEY, user_id TEXT NOT NULL, proposal_id TEXT, event_type TEXT NOT NULL, units INTEGER NOT NULL, created_at TEXT NOT NULL, FOREIGN KEY (user_id) REFERENCES users(id), FOREIGN KEY (proposal_id) REFERENCES proposals(id));
+  CREATE TABLE IF NOT EXISTS users (id TEXT PRIMARY KEY, name TEXT NOT NULL, email TEXT NOT NULL UNIQUE, created_at TEXT NOT NULL);
+  CREATE TABLE IF NOT EXISTS subscriptions (id TEXT PRIMARY KEY, user_id TEXT NOT NULL UNIQUE, plan TEXT, status TEXT NOT NULL, quota_total INTEGER NOT NULL DEFAULT 0, quota_used INTEGER NOT NULL DEFAULT 0, activated_at TEXT, updated_at TEXT NOT NULL, FOREIGN KEY (user_id) REFERENCES users(id));
+  CREATE TABLE IF NOT EXISTS proposals (id TEXT PRIMARY KEY, user_id TEXT NOT NULL, client_name TEXT NOT NULL, industry TEXT NOT NULL, service TEXT NOT NULL, problem TEXT NOT NULL, outcome TEXT NOT NULL, budget TEXT NOT NULL, tone TEXT NOT NULL, content TEXT NOT NULL, status TEXT NOT NULL, created_at TEXT NOT NULL, updated_at TEXT NOT NULL, FOREIGN KEY (user_id) REFERENCES users(id));
+  CREATE TABLE IF NOT EXISTS usage_events (id TEXT PRIMARY KEY, user_id TEXT NOT NULL, proposal_id TEXT, event_type TEXT NOT NULL, units INTEGER NOT NULL, created_at TEXT NOT NULL, FOREIGN KEY (user_id) REFERENCES users(id), FOREIGN KEY (proposal_id) REFERENCES proposals(id));
+  DELETE FROM usage_events;
+  DELETE FROM proposals;
+  DELETE FROM subscriptions;
+  DELETE FROM users;
 `);
 
 const now = "2026-07-11T09:00:00.000Z";
