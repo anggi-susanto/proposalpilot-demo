@@ -14,11 +14,11 @@ Runtime URL wajib untuk setiap checkpoint:
 
 ```text
 Host: 0.0.0.0
-Port: 3047
+Port: 3048
 Public subdomain yang akan di-attach operator: proposalpoint.jordi.web.id
 ```
 
-Di awal setiap checkpoint prompt, pastikan app bisa berjalan di `0.0.0.0:3047`. Gunakan runtime ini untuk browser check dan manual verification. Setelah build berhasil, utamakan production mode; gunakan dev mode hanya saat checkpoint butuh iterasi cepat.
+Di awal setiap checkpoint prompt, pastikan app bisa berjalan di `0.0.0.0:3048`. Gunakan runtime ini untuk browser check dan manual verification. Setelah build berhasil, utamakan production mode; gunakan dev mode hanya saat checkpoint butuh iterasi cepat.
 
 ## Product Brief
 
@@ -89,7 +89,7 @@ checkpoint-2-saas-flow
   Jangan edit application code dulu. Pertama inspect repository dan konfirmasi baseline.
 
   Runtime requirement:
-  Sebelum melaporkan step ini selesai, konfirmasi project bisa diserve pada host 0.0.0.0 dan port 3047 untuk public subdomain proposalpoint.jordi.web.id. Jika belum ada code yang berubah, gunakan baseline app.
+  Sebelum melaporkan step ini selesai, konfirmasi project bisa diserve pada host 0.0.0.0 dan port 3048 untuk public subdomain proposalpoint.jordi.web.id. Jika belum ada code yang berubah, gunakan baseline app.
 
   Product:
   ProposalPilot membantu freelancer, agency, dan consultant mengubah client brief singkat menjadi proposal terstruktur. Aplikasi harus mendukung landing page, local registration, local login/logout, sandbox plan checkout, persisted invoices, subscription activation, proposal quota, proposal creation, saved generated proposal content, dan persisted proposal status changes.
@@ -129,8 +129,8 @@ checkpoint-2-saas-flow
   Runtime check:
   - npm install jika dependencies belum ada
   - npm run build
-  - npm run start -- --hostname 0.0.0.0 --port 3047
-  - Buka http://127.0.0.1:3047 dan, jika tersedia, https://proposalpoint.jordi.web.id
+  - npm run start -- --hostname 0.0.0.0 --port 3048
+  - Buka http://127.0.0.1:3048 dan, jika tersedia, https://proposalpoint.jordi.web.id
   - Stop server setelah berhasil dikonfirmasi, kecuali operator meminta server tetap running
 
   Baca package.json, Next config, app layout, global CSS, README, dan tests yang sudah ada.
@@ -195,7 +195,7 @@ checkpoint-2-saas-flow
   - remote
   - konfirmasi bahwa remote adalah git@github.com:anggi-susanto/proposalpilot-baseline.git
   - Node dan node:sqlite status
-  - runtime status untuk 0.0.0.0:3047 dan proposalpoint.jordi.web.id jika reachable
+  - runtime status untuk 0.0.0.0:3048 dan proposalpoint.jordi.web.id jika reachable
   - planning files created
   - commit SHA
   - blocker jika ada
@@ -209,7 +209,7 @@ checkpoint-2-saas-flow
 Lanjutkan dari planning commit. Buat atau verifikasi baseline application scaffold untuk ProposalPilot.
 
 Runtime requirement:
-Di awal checkpoint ini, verifikasi app berjalan di 0.0.0.0:3047 agar bisa di-attach ke proposalpoint.jordi.web.id. Gunakan host/port ini untuk browser checks.
+Di awal checkpoint ini, verifikasi app berjalan di 0.0.0.0:3048 agar bisa di-attach ke proposalpoint.jordi.web.id. Gunakan host/port ini untuk browser checks.
 
 Goal:
 Buat baseline server-rendered yang jujur dengan public, auth, checkout, invoice, dan app route structure, tetapi belum ada SaaS business behavior.
@@ -269,8 +269,8 @@ Jalankan verification:
 - npm run test:e2e
 
 Runtime verification:
-- npm run start -- --hostname 0.0.0.0 --port 3047
-- Buka http://127.0.0.1:3047
+- npm run start -- --hostname 0.0.0.0 --port 3048
+- Buka http://127.0.0.1:3048
 - Jika public subdomain sudah attached, buka https://proposalpoint.jordi.web.id
 - Konfirmasi / dan /app render dari running server
 - Stop server setelah verification kecuali diminta tetap running
@@ -286,7 +286,7 @@ Report:
 - commit SHA
 - route list
 - hasil verification commands
-- runtime URL result untuk 0.0.0.0:3047 dan proposalpoint.jordi.web.id jika reachable
+- runtime URL result untuk 0.0.0.0:3048 dan proposalpoint.jordi.web.id jika reachable
 - konfirmasi bahwa belum ada SaaS behavior yang diimplementasikan
 - changed files penting
 ```
@@ -299,7 +299,7 @@ Report:
 Lanjutkan dari checkpoint-0-baseline. Implementasikan database foundation dan server-rendered reads.
 
 Runtime requirement:
-Di awal checkpoint ini, mulai dari runtime target yang working di 0.0.0.0:3047 untuk browser checks. Operator akan attach proposalpoint.jordi.web.id ke host/port tersebut.
+Di awal checkpoint ini, mulai dari runtime target yang working di 0.0.0.0:3048 untuk browser checks. Operator akan attach proposalpoint.jordi.web.id ke host/port tersebut.
 
 Goal:
 ProposalPilot harus membaca data account, session-aware app data, subscription, invoice, quota, dan proposal sungguhan dari SQLite. Jangan implementasikan auth actions, checkout, proposal creation mutation, atau status mutation dulu.
@@ -468,9 +468,9 @@ Jalankan verification:
 - npm run test:e2e
 
 Runtime verification:
-- npm run start -- --hostname 0.0.0.0 --port 3047
+- npm run start -- --hostname 0.0.0.0 --port 3048
 - Verifikasi /app, /app/proposals, /app/proposals/new, dan minimal satu proposal detail route di browser
-- Gunakan http://127.0.0.1:3047 secara lokal dan https://proposalpoint.jordi.web.id jika public subdomain reachable
+- Gunakan http://127.0.0.1:3048 secara lokal dan https://proposalpoint.jordi.web.id jika public subdomain reachable
 - Stop server setelah verification kecuali diminta tetap running
 
 Update docs/task-tracker.md dengan verified tasks dan proof.
@@ -486,7 +486,7 @@ Report:
 - repository functions yang diimplementasikan
 - pages yang sekarang backed by SQLite
 - hasil verification commands
-- runtime URL result untuk 0.0.0.0:3047 dan proposalpoint.jordi.web.id jika reachable
+- runtime URL result untuk 0.0.0.0:3048 dan proposalpoint.jordi.web.id jika reachable
 - konfirmasi bahwa register/login actions, checkout, proposal creation, dan status mutation belum diimplementasikan
 ```
 
@@ -498,7 +498,7 @@ Report:
 Lanjutkan dari checkpoint-1-foundation. Implementasikan local account registration, login, logout, session cookies, dan basic route guards.
 
 Runtime requirement:
-Di awal checkpoint ini, konfirmasi app bisa distart di 0.0.0.0:3047. Gunakan runtime target ini untuk browser checks melalui proposalpoint.jordi.web.id jika tersedia.
+Di awal checkpoint ini, konfirmasi app bisa distart di 0.0.0.0:3048. Gunakan runtime target ini untuk browser checks melalui proposalpoint.jordi.web.id jika tersedia.
 
 Goal:
 User bisa register, login, mengakses /app hanya saat authenticated, dan logout. Ini local development auth, bukan production-grade security.
@@ -540,9 +540,9 @@ Jalankan verification:
 - npm run test:e2e
 
 Runtime verification:
-- npm run start -- --hostname 0.0.0.0 --port 3047
+- npm run start -- --hostname 0.0.0.0 --port 3048
 - Verifikasi register, login, /app guard, dan logout di browser
-- Gunakan http://127.0.0.1:3047 secara lokal dan https://proposalpoint.jordi.web.id jika reachable
+- Gunakan http://127.0.0.1:3048 secara lokal dan https://proposalpoint.jordi.web.id jika reachable
 - Stop server setelah verification kecuali diminta tetap running
 
 Update docs/task-tracker.md dengan verified auth proof.
@@ -557,7 +557,7 @@ Report:
 - cookie/session model summary
 - test summary
 - hasil verification commands
-- runtime URL result untuk 0.0.0.0:3047 dan proposalpoint.jordi.web.id jika reachable
+- runtime URL result untuk 0.0.0.0:3048 dan proposalpoint.jordi.web.id jika reachable
 ```
 
 ---
@@ -568,7 +568,7 @@ Report:
 Lanjutkan dari local auth commit. Implementasikan plan checkout dan invoice creation menggunakan Server Actions.
 
 Runtime requirement:
-Di awal checkpoint ini, konfirmasi app saat ini bisa distart di 0.0.0.0:3047. Gunakan runtime target yang sama untuk manual browser checks melalui proposalpoint.jordi.web.id jika tersedia.
+Di awal checkpoint ini, konfirmasi app saat ini bisa distart di 0.0.0.0:3048. Gunakan runtime target yang sama untuk manual browser checks melalui proposalpoint.jordi.web.id jika tersedia.
 
 Goal:
 Authenticated user bisa memilih plan, menjalankan local sandbox checkout, mengaktifkan subscription, dan menerima persisted invoice.
@@ -630,10 +630,10 @@ Jalankan verification:
 - npm run test:e2e
 
 Runtime verification:
-- npm run start -- --hostname 0.0.0.0 --port 3047
+- npm run start -- --hostname 0.0.0.0 --port 3048
 - Verifikasi /app/billing dari browser
 - Activate Pro dan konfirmasi /app menampilkan 50/50 setelah reload
-- Gunakan http://127.0.0.1:3047 secara lokal dan https://proposalpoint.jordi.web.id jika reachable
+- Gunakan http://127.0.0.1:3048 secara lokal dan https://proposalpoint.jordi.web.id jika reachable
 - Stop server setelah verification kecuali diminta tetap running
 
 Update docs/task-tracker.md dengan verified subscription activation proof.
@@ -649,7 +649,7 @@ Report:
 - invoice file/function
 - test names atau test summary
 - hasil verification commands
-- runtime URL result untuk 0.0.0.0:3047 dan proposalpoint.jordi.web.id jika reachable
+- runtime URL result untuk 0.0.0.0:3048 dan proposalpoint.jordi.web.id jika reachable
 ```
 
 ---
@@ -660,7 +660,7 @@ Report:
 Lanjutkan dari commit checkout dan invoice. Implementasikan deterministic proposal generation dan atomic proposal creation.
 
 Runtime requirement:
-Di awal checkpoint ini, konfirmasi app bisa start di 0.0.0.0:3047. Gunakan runtime ini untuk semua manual browser checks dan untuk public subdomain proposalpoint.jordi.web.id jika reachable.
+Di awal checkpoint ini, konfirmasi app bisa start di 0.0.0.0:3048. Gunakan runtime ini untuk semua manual browser checks dan untuk public subdomain proposalpoint.jordi.web.id jika reachable.
 
 Goal:
 User aktif bisa membuat proposal dari brief. Proposal content dibuat server-side, disimpan ke SQLite, quota bertambah pemakaian, dan usage event di-insert dalam satu transaction.
@@ -731,9 +731,9 @@ Jalankan verification:
 - npm run test:e2e
 
 Runtime verification:
-- npm run start -- --hostname 0.0.0.0 --port 3047
+- npm run start -- --hostname 0.0.0.0 --port 3048
 - Activate Pro, create Nusantara Coffee, verifikasi generated detail content, dan konfirmasi quota 49/50 setelah reload
-- Gunakan http://127.0.0.1:3047 secara lokal dan https://proposalpoint.jordi.web.id jika reachable
+- Gunakan http://127.0.0.1:3048 secara lokal dan https://proposalpoint.jordi.web.id jika reachable
 - Stop server setelah verification kecuali diminta tetap running
 
 Update docs/task-tracker.md dengan verified proposal creation proof.
@@ -749,7 +749,7 @@ Report:
 - routes updated
 - test summary
 - hasil verification commands
-- runtime URL result untuk 0.0.0.0:3047 dan proposalpoint.jordi.web.id jika reachable
+- runtime URL result untuk 0.0.0.0:3048 dan proposalpoint.jordi.web.id jika reachable
 ```
 
 ---
@@ -760,7 +760,7 @@ Report:
 Lanjutkan dari commit proposal creation. Implementasikan proposal status updates dan selesaikan end-to-end SaaS flow.
 
 Runtime requirement:
-Di awal checkpoint ini, konfirmasi app bisa start di 0.0.0.0:3047. Gunakan runtime target ini untuk production-mode dan public-subdomain verification.
+Di awal checkpoint ini, konfirmasi app bisa start di 0.0.0.0:3048. Gunakan runtime target ini untuk production-mode dan public-subdomain verification.
 
 Goal:
 User bisa mengubah saved proposal status dari Draft ke Sent, dan status tetap persist setelah reload.
@@ -808,7 +808,7 @@ Jalankan verification:
 
 Jalankan juga production-mode verification:
 - npm run build
-- npm run start -- --hostname 0.0.0.0 --port 3047
+- npm run start -- --hostname 0.0.0.0 --port 3048
 
 Gunakan running app untuk manual verify:
 - inactive creation guardrail
@@ -817,7 +817,7 @@ Gunakan running app untuk manual verify:
 - generated proposal detail
 - Draft to Sent update
 - reload persistence
-- local URL: http://127.0.0.1:3047
+- local URL: http://127.0.0.1:3048
 - public URL jika reachable: https://proposalpoint.jordi.web.id
 
 Update docs/task-tracker.md dengan verified status update dan end-to-end proof.
@@ -833,7 +833,7 @@ Report:
 - full E2E test summary
 - hasil verification commands
 - production-mode verification result
-- runtime URL result untuk 0.0.0.0:3047 dan proposalpoint.jordi.web.id jika reachable
+- runtime URL result untuk 0.0.0.0:3048 dan proposalpoint.jordi.web.id jika reachable
 - remaining limitations jika ada
 ```
 
@@ -845,7 +845,7 @@ Report:
 Lanjutkan dari checkpoint-2-saas-flow. Package project documentation dan final verification. Jangan tambahkan product feature baru di langkah ini.
 
 Runtime requirement:
-Di awal checkpoint ini, konfirmasi final app bisa berjalan di 0.0.0.0:3047. Masukkan local URL dan public subdomain status ke final documentation.
+Di awal checkpoint ini, konfirmasi final app bisa berjalan di 0.0.0.0:3048. Masukkan local URL dan public subdomain status ke final documentation.
 
 Goal:
 Repository mudah dijalankan, diverifikasi, dan dipahami.
@@ -912,10 +912,10 @@ docs/runbook.md wajib mencakup exact steps:
 8. verify app flow manually
 
 Runbook wajib memakai production start command ini:
-npm run start -- --hostname 0.0.0.0 --port 3047
+npm run start -- --hostname 0.0.0.0 --port 3048
 
 Runbook wajib mencantumkan:
-- local URL: http://127.0.0.1:3047
+- local URL: http://127.0.0.1:3048
 - public subdomain: https://proposalpoint.jordi.web.id
 
 Final verification:
@@ -924,7 +924,7 @@ Final verification:
 - npx tsc --noEmit
 - npm run build
 - npm run test:e2e
-- npm run start -- --hostname 0.0.0.0 --port 3047
+- npm run start -- --hostname 0.0.0.0 --port 3048
 - git status --short
 - git log --oneline --decorate -8
 
@@ -939,6 +939,6 @@ Final report:
 - verified user journey
 - hasil verification commands
 - known limitations
-- runtime URL status untuk http://127.0.0.1:3047 dan https://proposalpoint.jordi.web.id
+- runtime URL status untuk http://127.0.0.1:3048 dan https://proposalpoint.jordi.web.id
 - final branch dan commit SHA
 ```
