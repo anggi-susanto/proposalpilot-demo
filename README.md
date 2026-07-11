@@ -67,11 +67,21 @@ Register / log in
 → reload or log back in: data persists
 ```
 
+## Participant prompt guides
+
+Use these step-by-step prompt guides to rebuild or extend the app with an AI coding assistant:
+
+- [Bahasa Indonesia](docs/proposalpilot-step-prompts-v3-id.md)
+- [English](docs/proposalpilot-step-prompts-v3-en.md)
+
+They are participant-facing examples, not required runtime files.
+
 ## Project structure
 
 ```text
 src/app/              public landing, auth, and protected workspace routes
 src/lib/              SQLite, auth/session, proposal generation, repositories
+docs/                 participant step-by-step AI prompt guides
 data/                 local SQLite database (generated; ignored by Git)
 scripts/reset-db.mjs  reset + seed local development database
 tests/                Playwright end-to-end tests
