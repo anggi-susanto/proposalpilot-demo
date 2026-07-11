@@ -9,14 +9,15 @@ ProposalPilot turns a short client brief into a structured proposal for freelanc
 This is a local, database-backed SaaS vertical slice:
 
 ```text
-SQLite user/subscription/proposal/usage-event records
-→ server-rendered dashboard and proposal pages
+Register/login + signed HttpOnly session cookie
+→ SQLite user/subscription/proposal/usage-event records
+→ protected server-rendered dashboard and proposal pages
 → sandbox subscription Server Action
 → persisted quota
 → deterministic server-side proposal generator
 → proposal create transaction
 → persisted Draft → Sent status update
-→ page reload persistence
+→ logout/login + page reload persistence
 → Playwright proof
 ```
 
