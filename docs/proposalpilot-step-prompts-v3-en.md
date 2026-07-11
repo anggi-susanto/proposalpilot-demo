@@ -15,7 +15,7 @@ Runtime URL requirement for every checkpoint:
 ```text
 Host: 0.0.0.0
 Port: 3047
-Public subdomain attached by the operator: proposal.jordi.web.id
+Public subdomain attached by the operator: proposalpoint.jordi.web.id
 ```
 
 At the start of every checkpoint prompt, make sure the app can run on `0.0.0.0:3047`. Use this runtime for browser checks and manual verification. Prefer production mode after a successful build; use dev mode only when the checkpoint explicitly needs fast iteration.
@@ -89,7 +89,7 @@ If you are not already inside a fresh clone of that repository, clone it first a
 Do not edit application code yet. First inspect the repository and confirm the baseline.
 
 Runtime requirement:
-Before reporting this step complete, confirm the project can be served on host 0.0.0.0 and port 3047 for the public subdomain proposal.jordi.web.id. If no code has changed yet, use the baseline app.
+Before reporting this step complete, confirm the project can be served on host 0.0.0.0 and port 3047 for the public subdomain proposalpoint.jordi.web.id. If no code has changed yet, use the baseline app.
 
 Product:
 ProposalPilot helps freelancers, agencies, and consultants turn a short client brief into a structured proposal. The app must support a landing page, local registration, local login/logout, sandbox plan checkout, persisted invoices, subscription activation, proposal quota, proposal creation, saved generated proposal content, and persisted proposal status changes.
@@ -130,7 +130,7 @@ Runtime check:
 - npm install if dependencies are missing
 - npm run build
 - npm run start -- --hostname 0.0.0.0 --port 3047
-- Open http://127.0.0.1:3047 and, if available, https://proposal.jordi.web.id
+- Open http://127.0.0.1:3047 and, if available, https://proposalpoint.jordi.web.id
 - Stop the server after confirming it works, unless the operator asks you to keep it running
 
 Read the existing package.json, Next config, app layout, global CSS, README, and tests.
@@ -195,7 +195,7 @@ Report:
 - remote
 - confirmation that the remote is git@github.com:anggi-susanto/proposalpilot-baseline.git
 - Node and node:sqlite status
-- runtime status for 0.0.0.0:3047 and proposal.jordi.web.id if reachable
+- runtime status for 0.0.0.0:3047 and proposalpoint.jordi.web.id if reachable
 - planning files created
 - commit SHA
 - any blockers
@@ -209,7 +209,7 @@ Report:
 Continue from the planning commit. Create or verify the baseline application scaffold for ProposalPilot.
 
 Runtime requirement:
-At the beginning of this checkpoint, verify the app runs on 0.0.0.0:3047 so it can be attached to proposal.jordi.web.id. Keep using this host/port for browser checks.
+At the beginning of this checkpoint, verify the app runs on 0.0.0.0:3047 so it can be attached to proposalpoint.jordi.web.id. Keep using this host/port for browser checks.
 
 Goal:
 Create an honest server-rendered baseline with public, auth, checkout, invoice, and app route structure, but no SaaS business behavior yet.
@@ -271,7 +271,7 @@ Run verification:
 Runtime verification:
 - npm run start -- --hostname 0.0.0.0 --port 3047
 - Open http://127.0.0.1:3047
-- If the public subdomain is already attached, open https://proposal.jordi.web.id
+- If the public subdomain is already attached, open https://proposalpoint.jordi.web.id
 - Confirm / and /app render from the running server
 - Stop the server after verification unless asked to keep it running
 
@@ -286,7 +286,7 @@ Report:
 - commit SHA
 - route list
 - verification command results
-- runtime URL result for 0.0.0.0:3047 and proposal.jordi.web.id if reachable
+- runtime URL result for 0.0.0.0:3047 and proposalpoint.jordi.web.id if reachable
 - confirmation that no SaaS behavior is implemented yet
 - any changed files of note
 ```
@@ -299,7 +299,7 @@ Report:
 Continue from checkpoint-0-baseline. Implement the database foundation and server-rendered reads.
 
 Runtime requirement:
-At the beginning of this checkpoint, start from a working runtime target of 0.0.0.0:3047 for browser checks. The operator will attach proposal.jordi.web.id to that host/port.
+At the beginning of this checkpoint, start from a working runtime target of 0.0.0.0:3047 for browser checks. The operator will attach proposalpoint.jordi.web.id to that host/port.
 
 Goal:
 ProposalPilot should read real account, session-aware app data, subscription, invoice, quota, and proposal data from SQLite. Do not implement auth actions, checkout, proposal creation mutation, or status mutation yet.
@@ -470,7 +470,7 @@ Run verification:
 Runtime verification:
 - npm run start -- --hostname 0.0.0.0 --port 3047
 - Verify /app, /app/proposals, /app/proposals/new, and at least one proposal detail route in the browser
-- Use http://127.0.0.1:3047 locally and https://proposal.jordi.web.id if the public subdomain is reachable
+- Use http://127.0.0.1:3047 locally and https://proposalpoint.jordi.web.id if the public subdomain is reachable
 - Stop the server after verification unless asked to keep it running
 
 Update docs/task-tracker.md with verified tasks and proof.
@@ -486,7 +486,7 @@ Report:
 - repository functions implemented
 - pages now backed by SQLite
 - verification command results
-- runtime URL result for 0.0.0.0:3047 and proposal.jordi.web.id if reachable
+- runtime URL result for 0.0.0.0:3047 and proposalpoint.jordi.web.id if reachable
 - confirmation that register/login actions, checkout, proposal creation, and status mutation are not implemented yet
 ```
 
@@ -498,7 +498,7 @@ Report:
 Continue from checkpoint-1-foundation. Implement local account registration, login, logout, session cookies, and basic route guards.
 
 Runtime requirement:
-At the beginning of this checkpoint, confirm the app can be started on 0.0.0.0:3047. Use this runtime target for browser checks through proposal.jordi.web.id when available.
+At the beginning of this checkpoint, confirm the app can be started on 0.0.0.0:3047. Use this runtime target for browser checks through proposalpoint.jordi.web.id when available.
 
 Goal:
 Users can register, log in, access /app only when authenticated, and log out. This is local development auth, not production-grade security.
@@ -542,7 +542,7 @@ Run verification:
 Runtime verification:
 - npm run start -- --hostname 0.0.0.0 --port 3047
 - Verify register, login, /app guard, and logout in the browser
-- Use http://127.0.0.1:3047 locally and https://proposal.jordi.web.id if reachable
+- Use http://127.0.0.1:3047 locally and https://proposalpoint.jordi.web.id if reachable
 - Stop the server after verification unless asked to keep it running
 
 Update docs/task-tracker.md with verified auth proof.
@@ -557,7 +557,7 @@ Report:
 - cookie/session model summary
 - test summary
 - verification command results
-- runtime URL result for 0.0.0.0:3047 and proposal.jordi.web.id if reachable
+- runtime URL result for 0.0.0.0:3047 and proposalpoint.jordi.web.id if reachable
 ```
 
 ---
@@ -568,7 +568,7 @@ Report:
 Continue from the local auth commit. Implement plan checkout and invoice creation using Server Actions.
 
 Runtime requirement:
-At the beginning of this checkpoint, confirm the current app can be started on 0.0.0.0:3047. Use that same runtime target for manual browser checks through proposal.jordi.web.id when available.
+At the beginning of this checkpoint, confirm the current app can be started on 0.0.0.0:3047. Use that same runtime target for manual browser checks through proposalpoint.jordi.web.id when available.
 
 Goal:
 The authenticated user can select a plan, go through local sandbox checkout, activate a subscription, and receive a persisted invoice.
@@ -633,7 +633,7 @@ Runtime verification:
 - npm run start -- --hostname 0.0.0.0 --port 3047
 - Verify /app/billing from the browser
 - Activate Pro and confirm /app shows 50/50 after reload
-- Use http://127.0.0.1:3047 locally and https://proposal.jordi.web.id if reachable
+- Use http://127.0.0.1:3047 locally and https://proposalpoint.jordi.web.id if reachable
 - Stop the server after verification unless asked to keep it running
 
 Update docs/task-tracker.md with verified subscription activation proof.
@@ -649,7 +649,7 @@ Report:
 - invoice file/function
 - test names or test summary
 - verification command results
-- runtime URL result for 0.0.0.0:3047 and proposal.jordi.web.id if reachable
+- runtime URL result for 0.0.0.0:3047 and proposalpoint.jordi.web.id if reachable
 ```
 
 ---
@@ -660,7 +660,7 @@ Report:
 Continue from the checkout and invoice commit. Implement deterministic proposal generation and atomic proposal creation.
 
 Runtime requirement:
-At the beginning of this checkpoint, confirm the app starts on 0.0.0.0:3047. Use this runtime for all manual browser checks and for the public subdomain proposal.jordi.web.id when reachable.
+At the beginning of this checkpoint, confirm the app starts on 0.0.0.0:3047. Use this runtime for all manual browser checks and for the public subdomain proposalpoint.jordi.web.id when reachable.
 
 Goal:
 An active user can create a proposal from a brief. The proposal content is generated server-side, saved to SQLite, quota is incremented, and a usage event is inserted in one transaction.
@@ -733,7 +733,7 @@ Run verification:
 Runtime verification:
 - npm run start -- --hostname 0.0.0.0 --port 3047
 - Activate Pro, create Nusantara Coffee, verify generated detail content, and confirm quota 49/50 after reload
-- Use http://127.0.0.1:3047 locally and https://proposal.jordi.web.id if reachable
+- Use http://127.0.0.1:3047 locally and https://proposalpoint.jordi.web.id if reachable
 - Stop the server after verification unless asked to keep it running
 
 Update docs/task-tracker.md with verified proposal creation proof.
@@ -749,7 +749,7 @@ Report:
 - routes updated
 - test summary
 - verification command results
-- runtime URL result for 0.0.0.0:3047 and proposal.jordi.web.id if reachable
+- runtime URL result for 0.0.0.0:3047 and proposalpoint.jordi.web.id if reachable
 ```
 
 ---
@@ -818,7 +818,7 @@ Use the running app to manually verify:
 - Draft to Sent update
 - reload persistence
 - local URL: http://127.0.0.1:3047
-- public URL if reachable: https://proposal.jordi.web.id
+- public URL if reachable: https://proposalpoint.jordi.web.id
 
 Update docs/task-tracker.md with verified status update and end-to-end proof.
 
@@ -833,7 +833,7 @@ Report:
 - full E2E test summary
 - verification command results
 - production-mode verification result
-- runtime URL result for 0.0.0.0:3047 and proposal.jordi.web.id if reachable
+- runtime URL result for 0.0.0.0:3047 and proposalpoint.jordi.web.id if reachable
 - any remaining limitations
 ```
 
@@ -916,7 +916,7 @@ npm run start -- --hostname 0.0.0.0 --port 3047
 
 The runbook must list:
 - local URL: http://127.0.0.1:3047
-- public subdomain: https://proposal.jordi.web.id
+- public subdomain: https://proposalpoint.jordi.web.id
 
 Final verification:
 - npm run db:reset
@@ -939,6 +939,6 @@ Final report:
 - verified user journey
 - verification command results
 - known limitations
-- runtime URL status for http://127.0.0.1:3047 and https://proposal.jordi.web.id
+- runtime URL status for http://127.0.0.1:3047 and https://proposalpoint.jordi.web.id
 - final branch and commit SHA
 ```
