@@ -1,38 +1,30 @@
-# ProposalPilot — Real SaaS Vertical Slice
+# ProposalPilot
 
-Companion repository for **From Prompt to Production: Building SaaS with AI in Under 1 Hour**.
+A focused proposal workflow for freelancers, consultants, and service agencies.
 
-ProposalPilot turns a short client brief into a structured proposal for freelancers, agencies, and consultants.
+ProposalPilot helps you turn a client brief into a structured proposal, manage a simple plan quota, and track the proposal from **Draft** to **Sent**, **Accepted**, or **Rejected**.
 
-## What is real in checkpoint 2
+## What works today
 
-This is a local, database-backed SaaS vertical slice:
+- Register, login, logout, and protected workspace routes
+- Signed HttpOnly session cookie
+- Local SQLite persistence for users, subscriptions, proposals, and usage events
+- Starter, Pro, and Agency plan selection
+- Sandbox subscription activation
+- Server-side quota enforcement
+- Server-side deterministic proposal generation
+- Proposal save + usage-event + quota update in one transaction
+- Proposal status tracking and reload persistence
+- Playwright end-to-end coverage for auth and the core proposal journey
 
-```text
-Register/login + signed HttpOnly session cookie
-→ SQLite user/subscription/proposal/usage-event records
-→ protected server-rendered dashboard and proposal pages
-→ sandbox subscription Server Action
-→ persisted quota
-→ deterministic server-side proposal generator
-→ proposal create transaction
-→ persisted Draft → Sent status update
-→ logout/login + page reload persistence
-→ Playwright proof
-```
+## Quick start
 
-The source of truth is `data/proposalpilot.sqlite`, not browser localStorage or React-only state.
+### Requirements
 
-## Checkpoint branches
+- Node.js 24+ (the project uses Node's built-in SQLite support)
+- npm
 
-| Branch | Actual meaning |
-|---|---|
-| `checkpoint-0-baseline` | True empty Next.js SSR route scaffold; no product flow |
-| `checkpoint-1-ui-shell` | SQLite schema, seeded demo records, Server Component database reads |
-| `checkpoint-2-working-saas-flow` | Server Actions for sandbox subscription, quota, proposal creation, and status persistence |
-| `main` | Current verified checkpoint 2 plus attendee docs/prompt pack |
-
-## Run locally
+### Install and run
 
 ```bash
 npm install
@@ -41,7 +33,16 @@ npm run build
 npm run start -- --hostname 0.0.0.0 --port 3047
 ```
 
-Open `http://127.0.0.1:3047`.
+Open [http://127.0.0.1:3047](http://127.0.0.1:3047).
+
+A seeded development account is available after `npm run db:reset`:
+
+```text
+Email:    alex@proposalpilot.local
+Password: demo123456
+```
+
+You can also create your own account from `/auth/register`.
 
 ## Verify
 
@@ -53,47 +54,49 @@ npm run build
 npm run test:e2e
 ```
 
-## Live demo journey
+## Product journey
 
 ```text
-/app/billing
-→ choose Pro
-→ Complete Sandbox Checkout
-→ /app shows Pro active and 50/50
-→ /app/proposals/new
-→ Generate and Save Proposal
-→ proposal detail shows generated content
-→ /app shows 49/50
-→ change Draft to Sent
-→ reload confirms Sent + 49/50 persist
+Register / log in
+→ choose a plan
+→ complete sandbox activation
+→ receive an active subscription and quota
+→ create + save a proposal
+→ quota decreases after a successful save
+→ update lifecycle status
+→ reload or log back in: data persists
 ```
 
-## Honest boundaries
+## Project structure
 
-Implemented:
+```text
+src/app/              public landing, auth, and protected workspace routes
+src/lib/              SQLite, auth/session, proposal generation, repositories
+data/                 local SQLite database (generated; ignored by Git)
+scripts/reset-db.mjs  reset + seed local development database
+tests/                Playwright end-to-end tests
+```
 
-- local SQLite persistence
-- server-rendered reads
-- Server Action writes
-- local sandbox subscription
-- quota transaction with proposal record and usage event
-- deterministic server-side generator
+## Current boundaries
 
-Not implemented:
+This repository is a functional **local SaaS vertical slice**, not a production billing platform.
 
-- real login/password/session security
-- remote/shared production database
-- payment processor, payment webhooks, invoices
-- external AI provider
-- multi-user authorization, rate limits, monitoring
-- PDF export
+Implemented locally:
 
-Sandbox checkout creates a local development subscription. It does not charge a card or contact a payment provider.
+- account credentials, sessions, and user-scoped data
+- SQLite persistence
+- quota and proposal transactions
+- sandbox subscription flow
 
-## Webinar prompt pack
+Still needed for production:
 
-- [`docs/live-build-master-prompt.md`](docs/live-build-master-prompt.md) — end-to-end idea → plan → CP0 → CP1 → verify → CP2 → verify → final prompt
-- [`docs/checkpoint-build-prompts.md`](docs/checkpoint-build-prompts.md) — checkpoint prompts and timing map
+- a remote/shared database and migrations
+- stronger session/security hardening and multi-user authorization policy
+- payment provider integration, webhooks, invoices, and cancellation flows
+- external AI provider integration
+- rate limits, monitoring, backup/export, and operational controls
+
+Sandbox activation does **not** charge a card or contact a payment provider.
 
 ## License
 

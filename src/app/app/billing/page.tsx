@@ -1,5 +1,5 @@
 import { activateSubscription } from "./actions";
-import { getCurrentUser } from "@/lib/auth";
+import { requireAuth } from "@/lib/auth";
 import { getSubscriptionForUser } from "@/lib/repositories";
 import { formatQuota, plans } from "@/lib/types";
 
@@ -7,8 +7,7 @@ export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
 export default async function BillingPage() {
-  const user = await getCurrentUser();
-  if (!user) return null;
+  const user = await requireAuth();
   const subscription = getSubscriptionForUser(user.id);
   if (!subscription) throw new Error("Subscription not found. Please register again.");
 
