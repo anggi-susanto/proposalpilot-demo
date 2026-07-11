@@ -10,7 +10,7 @@ export const dynamic = "force-dynamic";
 export default async function ProposalDetailPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
   const user = await getCurrentUser();
-  if (!user) throw new Error("Not authenticated.");
+  if (!user) return null;
   const proposal = getProposalForUser(user.id, id);
   if (!proposal) notFound();
 

@@ -8,7 +8,7 @@ export const dynamic = "force-dynamic";
 
 export default async function ProposalsPage() {
   const user = await getCurrentUser();
-  if (!user) throw new Error("Not authenticated.");
+  if (!user) return null;
   const proposals = listProposalsForUser(user.id);
 
   return (

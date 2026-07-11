@@ -27,14 +27,14 @@ test("auth: register a new user, login, and access dashboard", async ({ page }) 
 
   // Should redirect to /app dashboard
   await expect(page).toHaveURL(/\/app$/);
-  await expect(page.getByText("Welcome back, Test User.")).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Welcome back, Test User." })).toBeVisible();
   await expect(page.getByText("No active plan")).toBeVisible();
   await expect(page.getByText("0/0", { exact: true })).toBeVisible();
 });
 
 test("auth: login with demo user persists session and loads data", async ({ page }) => {
   await loginAsDemoUser(page);
-  await expect(page.getByText("Welcome back, Alex Morgan.")).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Welcome back, Alex Morgan." })).toBeVisible();
 
   // Demo seed data should be visible
   await expect(page.getByText("No active plan")).toBeVisible();
@@ -111,7 +111,7 @@ test("end-to-end: register new user → checkout → proposal → status", async
   await page.getByRole("button", { name: /create account/i }).click();
 
   await expect(page).toHaveURL(/\/app$/);
-  await expect(page.getByText("Welcome back, Jane Smith.")).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Welcome back, Jane Smith." })).toBeVisible();
 
   // Start with no plan
   await expect(page.getByText("0/0", { exact: true })).toBeVisible();
@@ -139,6 +139,6 @@ test("end-to-end: register new user → checkout → proposal → status", async
   await page.getByLabel("Password").fill("janepass123");
   await page.getByRole("button", { name: /log in/i }).click();
   await expect(page).toHaveURL(/\/app$/);
-  await expect(page.getByText("Welcome back, Jane Smith.")).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Welcome back, Jane Smith." })).toBeVisible();
   await expect(page.getByText("49/50", { exact: true })).toBeVisible();
 });

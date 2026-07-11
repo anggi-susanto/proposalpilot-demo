@@ -10,7 +10,7 @@ export const dynamic = "force-dynamic";
 
 export default async function NewProposalPage() {
   const user = await getCurrentUser();
-  if (!user) throw new Error("Not authenticated.");
+  if (!user) return null;
   const subscription = getSubscriptionForUser(user.id);
   if (!subscription) throw new Error("Subscription not found. Please register again.");
   const active = subscription.status === "active" && subscription.quotaUsed < subscription.quotaTotal;

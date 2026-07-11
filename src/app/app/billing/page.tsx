@@ -8,7 +8,7 @@ export const dynamic = "force-dynamic";
 
 export default async function BillingPage() {
   const user = await getCurrentUser();
-  if (!user) throw new Error("Not authenticated.");
+  if (!user) return null;
   const subscription = getSubscriptionForUser(user.id);
   if (!subscription) throw new Error("Subscription not found. Please register again.");
 
